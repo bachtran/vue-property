@@ -93,7 +93,7 @@ export default {
     map.on("mouseenter", "property-points", function(e) {
       // Change the cursor style as a UI indicator.
       map.getCanvas().style.cursor = "pointer";
-      
+
       let project = JSON.parse(e.features[0].properties.project);
 
       var coordinates = e.features[0].geometry.coordinates.slice();
@@ -127,19 +127,26 @@ export default {
   data() {
     return {
       map: null,
-      zoom: 1
+      dummyData: {
+        type: "FeatureCollection",
+        features: []
+      }
     };
   },
   watch: {
     // Watch for mapData changes and update map source
     mapData: function() {
-      let data = {
-        type: "FeatureCollection",
-        features: this.mapData
-      };
-      let bounds = this.getBoundingBox(data.features);
-      this.map.getSource("property").setData(data);
-      this.map.fitBounds(bounds, { padding: 20 });
+      if (this.mapData.length == 0) {
+        this.map.getSource("property").setData(this.dummyData);
+      } else {
+        let data = {
+          type: "FeatureCollection",
+          features: this.mapData
+        };
+        let bounds = this.getBoundingBox(data.features);
+        this.map.getSource("property").setData(data);
+        this.map.fitBounds(bounds, { padding: 20 });
+      }
     }
   }
 };
