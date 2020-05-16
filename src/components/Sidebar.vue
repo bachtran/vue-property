@@ -249,6 +249,10 @@ export default {
             let result = this.filterData;
             result = this.filterText(result, this.title, this.KEY.Title);
 
+            result = this.filterText(result, this.description, this.KEY.Description);
+
+            result = this.filterText(result, this.notes, this.KEY.Notes);
+
             result = this.filterChoices(result, this.type, this.KEY.Type);
 
             result = this.filterChoices(result, this.suburb, this.KEY.Suburb);
