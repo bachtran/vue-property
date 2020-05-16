@@ -39,6 +39,7 @@
         <b-form-input v-model="notes" placeholder="Notes"></b-form-input>
         
         <b-button v-on:click.prevent="filter" class="submitButton">Filter</b-button>
+        <b-alert v-model="resultIsEmpty" class="emptyAlert" dismissible>The result is empty</b-alert>
     </div>
 </template>
 
@@ -61,6 +62,7 @@ export default {
     data: function () {
         return {
             name: "sidebar",
+            resultIsEmpty: false,
 
             KEY: {
                 Title: "Title",
@@ -249,6 +251,8 @@ export default {
             let result = this.filterData;
             result = this.filterText(result, this.title, this.KEY.Title);
 
+            result = this.filterText(result, this.address, this.KEY.Address);
+
             result = this.filterText(result, this.description, this.KEY.Description);
 
             result = this.filterText(result, this.notes, this.KEY.Notes);
@@ -290,6 +294,12 @@ export default {
             result = this.filterDateFrom(result, this.lastUpdatedFrom, this.KEY.LastUpdated);
             result = this.filterDateTo(result, this.lastUpdatedTo, this.KEY.LastUpdated);
 
+            if (result.length == 0) {
+                this.resultIsEmpty = true;
+            } else {
+                this.resultIsEmpty = false;
+            }
+
             this.$emit('filter', result);
         }
     }
@@ -300,8 +310,13 @@ export default {
     padding: 10px;
 }
 .submitButton {
-  position: fixed;
-  top: 20px;
-  left: 20px;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+}
+.emptyAlert {
+    position: fixed;
+    top: 20px;
+    left: 100px;
 }
 </style>
