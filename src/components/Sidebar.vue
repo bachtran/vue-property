@@ -306,9 +306,6 @@ export default {
 }
 </script>
 <style scoped>
-#sidebar {
-    padding: 10px;
-}
 .submitButton {
     position: fixed;
     top: 20px;

@@ -48,10 +48,11 @@ export default {
   display: flex;
 }
 .sidebar {
-    width: 20%;
+  flex: 20%;
+  padding: 10px;
 }
 .map {
-  flex: 1;
-  overflow: auto;
+  flex: 80%;
+  padding: 10px;
 }
 </style>
